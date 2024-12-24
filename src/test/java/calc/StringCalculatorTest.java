@@ -2,6 +2,7 @@ package calc;
 
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class StringCalculatorTest {
@@ -49,9 +50,18 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void splitAndSum_custom_구분자() throws Exception {
+    public void splitAndSum_custom_delimiter() throws Exception {
         String rawString = "//;\n1;2;3";
         int answer = StringCalculator.splitAndSum(rawString);
         assertThat(answer).isEqualTo(6);
+    }
+
+    @Test
+    public void negative_Numbers_raise_exception() throws Exception {
+        String rawString = "-1:2:3";
+        assertThatThrownBy(() -> StringCalculator.splitAndSum(rawString))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessage("양수만 가능합니다.");
+
     }
 }
