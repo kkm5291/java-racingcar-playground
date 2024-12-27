@@ -1,6 +1,6 @@
 package racing;
 
-public class ValidationUtils {
+public class InputUtils {
 
     public static final int NAME_LIMIT_LENGTH = 5;
 

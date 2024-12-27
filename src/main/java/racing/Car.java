@@ -14,7 +14,7 @@ public class Car {
     private Car() {}
 
     public static Car createCar(String name) {
-        ValidationUtils.nameValidation(name);
+        InputUtils.nameValidation(name);
         Car car = new Car();
         car.name = name;
         car.position = 0;
