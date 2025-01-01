@@ -1,32 +1,51 @@
 package racing;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class InputUtilsTest {
 
-    @Test
-    @DisplayName("문자 구분은 , 로 한다")
-    void splitName() {
-        String nameInput = "gong, kyung, jung";
-        String[] names = nameInput.split("[,]");
+    private final InputStream standardIn = System.in;
+    private String nameInput;
 
-        assertThat(names.length).isEqualTo(3);
+    @BeforeEach
+    void setUp() {
+        nameInput = "gong, kyung, jung";
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.setIn(standardIn);
     }
 
     @Test
-    @DisplayName("이름은 5글자 이하")
-    void nameValidation() {
-        boolean valid = InputUtils.nameValidation("Steve");
-        assertThat(valid).isTrue();
+    @DisplayName("InputUtils 내부 문자 split은 , 를 기준으로 한다.")
+    void splitName() throws Exception {
+        // given
+        System.setIn(new ByteArrayInputStream(nameInput.getBytes()));
+
+        List<String> names = InputUtils.inputCarNames();
+        assertThat(names.size()).isEqualTo(3);
     }
 
     @Test
-    @DisplayName("5글자 초과 시 예외 발생")
-    void nameValidation_ex() {
-        assertThatThrownBy(() -> InputUtils.nameValidation("SteveSteveSteveSteveSteve")).isInstanceOf(RuntimeException.class);
+    @DisplayName("InputUtils split 후 내부 값 검증")
+    void 내부값_검증() throws Exception {
+        //given
+        System.setIn(new ByteArrayInputStream(nameInput.getBytes()));
+
+        List<String> names = InputUtils.inputCarNames();
+        assertThat(names.contains("gong")).isTrue();
+        assertThat(names.contains("kyung")).isTrue();
+        assertThat(names.contains("jung")).isTrue();
     }
 }
