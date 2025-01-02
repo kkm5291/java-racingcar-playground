@@ -1,4 +1,4 @@
-package racing;
+package racing.utils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -11,6 +11,11 @@ public class InputUtils {
     public static List<String> inputCarNames() {
         String names = inputValue();
         return splitName(names);
+    }
+
+    public static int inputCount() {
+        String count = inputValue();
+        return Integer.parseInt(count);
     }
 
     private static String inputValue() {

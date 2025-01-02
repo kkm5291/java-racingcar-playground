@@ -1,4 +1,4 @@
-package racing;
+package racing.utils;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,5 +47,13 @@ public class InputUtilsTest {
         assertThat(names.contains("gong")).isTrue();
         assertThat(names.contains("kyung")).isTrue();
         assertThat(names.contains("jung")).isTrue();
+    }
+
+    @Test
+    @DisplayName("이름 5글자 초과 시 예외 발생")
+    void 이름_길이_초과_예외() {
+        System.setIn(new ByteArrayInputStream("pobing, crong, honux, jung".getBytes()));
+
+        assertThatThrownBy(InputUtils::inputCarNames).isInstanceOf(IllegalArgumentException.class);
     }
 }

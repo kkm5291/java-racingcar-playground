@@ -1,4 +1,4 @@
-package racing;
+package racing.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,13 +20,13 @@ public class CarTest {
     @DisplayName("randomValue가 4 이하일 경우 position 유지")
     void stayCar() {
         car.move(0);
-        assertThat(car.getPosition()).isEqualTo(0);
+        assertThat(car.getPosition()).isEqualTo(1);
     }
 
     @Test
     @DisplayName("randomValue가 4 이상일 경우 position 증가")
     void moveCar() {
         car.move(4);
-        assertThat(car.getPosition()).isGreaterThan(0);
+        assertThat(car.getPosition()).isGreaterThan(1);
     }
 }
